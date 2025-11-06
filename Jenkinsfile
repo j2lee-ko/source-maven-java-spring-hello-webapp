@@ -22,9 +22,15 @@ pipeline {
         sh 'mvn clean package'
       }
     }
+    stage('Image Build') {
+      agent any
+      steps {
+        sh 'docker image build -t tomcat:hello .'
+      }
+    }
     stage('Image Tag') {
       agent any
-      step any {
+      steps {
         sh 'docker image tag tomcat:hello junny34/tomcat:v1'
         sh 'docker image tag tomcat:hello junny34/tomcat:latest'
       }
