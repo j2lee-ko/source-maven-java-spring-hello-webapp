@@ -31,7 +31,7 @@ pipeline {
     stage('Deploy') {
      agent any
      steps {
-       sh 'docker container run -d -p 90:8080 --name webserver tomcat:hello'
+       ansiblePlaybook(playbook: 'playbook.yml')
      }
     }
   }
