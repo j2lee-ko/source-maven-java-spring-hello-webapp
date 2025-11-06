@@ -17,13 +17,14 @@ pipeline {
     stage('Build') {
       agent {
         docker { image 'maven:3-openjdk-17' }
+      }
       steps {
         sh 'mvn clean package'
       }
     }
     stage('Image Build') {
       agent any
-      step any
+      step any {
         sh 'docker image tag tomcat:hello junny34/tomcat:v1'
         sh 'docker image tag tomcat:hello junny34/tomcat:latest'
       }
