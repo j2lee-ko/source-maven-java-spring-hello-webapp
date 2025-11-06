@@ -2,11 +2,11 @@
 - name: Deploy Tomcat Container
   hosts: localhost
   tasks:
-    - name: create container
-      docker_container:
-        name: webserver 
-        image: tomcat:hello
-        state: started
-        port: 
-          - "80:8080"
+  - name: create container
+    docker_container:
+      name: webserver 
+      image: tomcat:hello
+      state: started
+      port: 
+        - "81:8080"
 ... 
