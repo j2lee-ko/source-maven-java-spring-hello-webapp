@@ -49,7 +49,7 @@ pipeline {
         docker { image 'docker:dind' }
       }
       steps {
-        sh 'docker -H tcp://192.168.56.104:2375 run -d --name webserver -p 80:8080 junny34/tomcat:latest'
+        sh 'docker -H tcp://192.168.56.104:2376 run -d --name webserver -p 80:8080 junny34/tomcat:latest'
 
       }
     }
