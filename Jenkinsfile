@@ -28,30 +28,11 @@ pipeline {
         sh 'docker image build -t tomcat:hello .'
       }
     }
-    stage('Image Tag') {
-      agent any
-      steps {
-        sh 'docker image tag tomcat:hello junny34/tomcat:v1'
-        sh 'docker image tag tomcat:hello junny34/tomcat:latest'
-      }
-    }
-    stage('Image Push') {
-      agent any
-      steps {
-        withDockerRegistry(credentialsId: 'docker-client-certs', url: 'https://index.docker.io/v1/'){
-          sh 'docker image push junny34/tomcat:$BUILDNUMBER'
-          sh 'docker image push junny34/tomcat:latest'
-        }
-      }
-    }
-    stage('Running Container') {
-      agent {
-        docker { image 'docker:dind' }
-      }
-      steps {
-        sh 'docker -H tcp://192.168.56.104:2376 run -d --name webserver -p 80:8080 junny34/tomcat:latest'
-
-      }
+    stage('Deploy') {
+     agent any
+     steps {
+       sh 'docker container run -d -p 90:8080 --name webserver tomcat:hello'
+     }
     }
   }
 }
